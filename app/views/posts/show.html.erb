@@ -1,4 +1,8 @@
-<h1><%= @post.title %></h1>
-<h2>Author: <%= @post.user.username %></h2>
+<p><%= render @post.categories %></p>
 
-<p><%= @post.description %></p>
+<%= render "shared/content_title", title: @post.title %>
+
+<p>
+  <%= @post.description %>
+</p>
+<hr />

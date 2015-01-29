@@ -9,3 +9,24 @@
   <%= @post.description %>
 </p>
 <hr />
+
+<%= render "shared/error_message", content: @comment %>
+
+<%= form_for [@post, @comment] do |f| %>
+  <div class="control-group">
+    <%= f.label :body, "Leave a Comment:" %>
+    <%= f.text_area :body %>
+  </div>
+  <%= f.submit "Add Comment", class: "btn btn-primary" %>
+<% end %>
+
+
+<% @post.comments.each do |comment| %>
+  <div class="row">
+    <div class="well span8">
+      <em>"<%= comment.body %>"</em>
+      <br />
+      <span class="quiet">by </span><%= comment.creator.username %><small> at <%= comment.created_at %></small>
+    </div>
+  </div>
+<% end %>

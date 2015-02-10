@@ -1,7 +1,10 @@
 <p><%= render @post.categories %></p>
-<p class="pull-right">
-  [<%= link_to "edit this post", edit_post_path(@post) %>]
-</p>
+
+<% if logged_in? %>
+  <p class="pull-right">
+    [<%= link_to "edit this post", edit_post_path(@post) %>]
+  </p>
+<% end %>
 
 <%= render "shared/content_title", title: @post.title %>
 
@@ -10,14 +13,16 @@
 </p>
 <hr />
 
-<%= render "shared/error_message", content: @comment %>
+<% if logged_in? %>
+  <%= render "shared/error_message", content: @comment %>
 
-<%= form_for [@post, @comment] do |f| %>
-  <div class="control-group">
-    <%= f.label :body, "Leave a Comment:" %>
-    <%= f.text_area :body %>
-  </div>
-  <%= f.submit "Add Comment", class: "btn btn-primary" %>
+  <%= form_for [@post, @comment] do |f| %>
+    <div class="control-group">
+      <%= f.label :body, "Leave a Comment:" %>
+      <%= f.text_area :body %>
+    </div>
+    <%= f.submit "Add Comment", class: "btn btn-primary" %>
+  <% end %>
 <% end %>
 
 

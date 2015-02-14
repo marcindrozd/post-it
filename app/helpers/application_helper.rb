@@ -4,6 +4,10 @@ module ApplicationHelper
   end
 
   def format_date(date)
-    date.strftime("%d-%b-%Y %H:%M")
+    if logged_in? && !current_user.time_zone.nil?
+      date = date.in_time_zone(current_user.time_zone)
+    end
+
+    date.strftime("%d-%b-%Y %H:%M %Z")
   end
 end

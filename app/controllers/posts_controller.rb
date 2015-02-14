@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:edit, :update, :show, :vote]
   before_action :require_user, except: [:index, :show]
+  before_action :require_editor, only: [:edit, :update]
 
   def index
     @posts = Post.all
@@ -62,5 +63,10 @@ class PostsController < ApplicationController
 
   def set_post
     @post = Post.find_by(slug: params[:id])
+  end
+
+  def require_editor
+    set_post
+    display_alert unless can_edit?(@post)
   end
 end

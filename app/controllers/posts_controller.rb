@@ -9,6 +9,12 @@ class PostsController < ApplicationController
 
   def show
     @comment = Comment.new
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @post.to_json(:only => [:title, :url, :description]) }
+      format.xml { render xml: @post.to_xml(:only => [:title, :url, :description]) }
+    end
   end
 
   def new

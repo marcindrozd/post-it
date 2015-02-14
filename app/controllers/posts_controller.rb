@@ -66,7 +66,6 @@ class PostsController < ApplicationController
   end
 
   def require_editor
-    set_post
     display_alert unless can_edit?(@post)
   end
 end
